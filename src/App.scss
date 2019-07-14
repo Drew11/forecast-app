@@ -1,0 +1,28 @@
+.App {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.App-header {
+   width: 300px;
+   margin: 0 auto;
+   text-align: center;
+   background-color: grey;
+}
+
+.rendered__weather-detail {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    ul{
+       list-style: none;
+       border: 1px solid gainsboro;
+       border-radius: 3px;
+       background-color: cadetblue;
+       font-weight: bold;
+      li{
+        margin-right: 30px;
+      }
+    }
+}
