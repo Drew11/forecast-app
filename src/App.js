@@ -63,8 +63,10 @@ class App extends Component {
                   onKeyPress={ this.confirmSearchCity }
               />
           </header>
+
               <CurrentDayWeather />
               <LastQuery click={this.selectCityHistory}/>
+
           </div>
          </Router>
       );
