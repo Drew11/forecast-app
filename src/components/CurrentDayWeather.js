@@ -9,10 +9,6 @@ import ForecastWeather from "./ForecastWeather";
 
 const CurrentDayWeather = ( {currentCityWeather, setForecastWeather, forecastWeather, } )=> {
 
-    const setForecast = async ()=>{
-        const forecastWeather = await getForecastData(currentCityWeather.location['name']);
-        setForecastWeather((forecastWeather['forecast']['forecastday']));
-    };
 
     return (
         currentCityWeather.current ?
@@ -21,17 +17,7 @@ const CurrentDayWeather = ( {currentCityWeather, setForecastWeather, forecastWea
                     <Location/>
                     <Weather/>
                 </div>
-
                 <LastQueryCities/>
-
-                <Link
-                    className={"link__forecast"}
-                    to={"/week"}
-                    onClick={setForecast}
-                >
-                    Weather on week
-                </Link>
-                <Route path={"/week"} component={ForecastWeather} />
             </Router>
             : null
     )
@@ -40,7 +26,7 @@ const CurrentDayWeather = ( {currentCityWeather, setForecastWeather, forecastWea
 
 const mapDispatch = (dispatch) => {
     return{
-    setForecastWeather: (forecastWeather) => dispatch({type:'SET_FORECAST_WEATHER',forecastWeather: forecastWeather})
+
 }
 };
 

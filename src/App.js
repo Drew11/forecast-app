@@ -1,21 +1,42 @@
 import React, {Component} from 'react';
-import {Route, Switch} from "react-router-dom";
+import {Route, Switch, Link} from "react-router-dom";
 import { connect} from 'react-redux';
 import {Input} from 'reactstrap'
 import CurrentDayWeather from './components/CurrentDayWeather';
 import ForecastWeather from "./components/ForecastWeather";
-import { getCurrentDayData} from './helpers/api';
+import {getCurrentDayData, getForecastData} from './helpers/api';
 import './App.scss';
 
 class App extends Component {
+
+  constructor(){
+      super();
+      this.state={
+         componentCurrentDay: false
+      }
+  }
 
   confirmSearchCity = (event)=>{
     const {setCity} = this.props;
 
     if(event.which === 13 ){
       const city = event.target.value;
-      setCity(city)
+      setCity(city);
+
+      this.setState(prevState=>({
+            ...prevState,
+            componentCurrentDay: !prevState.componentCurrentDay
+      }))
     }
+
+
+  };
+
+   setForecast = async ()=>{
+
+       const {city, setForecastWeather} = this.props;
+       const forecastWeather = await getForecastData(city);
+       setForecastWeather((forecastWeather['forecast']['forecastday']));
   };
 
   async componentDidUpdate( prevProps ) {
@@ -27,6 +48,7 @@ class App extends Component {
       if (prevProps.city !== city) {
           const weather = await getCurrentDayData(city);
           setCurrentDayWeather(weather)
+
       }
 
       if (prevProps.currentDayWeather.location !== currentDayWeather.location && currentDayWeather.location ){
@@ -49,12 +71,25 @@ class App extends Component {
                   />
              </header>
 
+
               <main>
-                  <Switch>
-                      <Route path={"/"} component={CurrentDayWeather}/>
+
+
+                      <CurrentDayWeather/>
                       <Route path={"/week"} component={ForecastWeather}/>
-                  </Switch>
+
+                  {this.state.componentCurrentDay?
+                      <Link
+                          className={"link__forecast"}
+                          to={"/week"}
+                          onClick={this.setForecast}
+                      >
+                          Weather on week
+                      </Link>: null
+                  }
+
               </main>
+
 
           </div>
       );
@@ -79,6 +114,9 @@ const mapDispatchProps = (dispatch) => {
         addCityToHistory: (cityName)=> dispatch(
             {type: 'ADD_CITY_TO_HISTORY', cityName: cityName}
             ),
+        setForecastWeather: (forecastWeather) => dispatch(
+            {type:'SET_FORECAST_WEATHER',forecastWeather: forecastWeather}
+            )
 }};
 
 export default connect(mapProps, mapDispatchProps)(App);
