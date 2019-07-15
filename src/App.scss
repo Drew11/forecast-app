@@ -1,28 +1,73 @@
 .App {
     display: flex;
     flex-direction: column;
-
+    main{
+      margin: 0 auto;
+    }
 }
 
 .App-header {
    width: 300px;
    margin: 0 auto;
    text-align: center;
-   background-color: grey;
-}
+      h1{
+        background-color: grey;
+        padding-bottom: 30px;
+      }
+ }
 
 .rendered__weather-detail {
+
     display: flex;
     justify-content: center;
     margin-top: 20px;
     ul{
+
+       width: 250px;
        list-style: none;
-       border: 1px solid gainsboro;
-       border-radius: 3px;
-       background-color: cadetblue;
+       border: 1px solid darkgray;
+       border-radius: 5px;
+       background-color: #7abaff;
        font-weight: bold;
+       font-family: Calibri, sans-serif;
       li{
+        margin-left: -20px;
+        text-align: left;
+        vertical-align: center;
         margin-right: 30px;
       }
     }
+    ul:nth-child(2){
+        margin-left: 2px;
+        width: 200px;
+      li{
+        text-align: right;
+        margin-right: 30px;
+      }
+    }
+}
+.lastFiveQuery {
+  margin: 0 auto;
+    ul {
+      display: flex;
+      list-style: none;
+      li {
+        margin-left: 5px;
+        border-radius: 3px;
+        border: 1px solid gray;
+        color: #4e555b;
+        cursor:pointer;
+      }
+      li:hover {
+        background: #cbd3da;
+      }
+    }
+}
+
+.link__forecast{
+  margin:0 auto;
+}
+
+.active {
+  background-color: gold;
 }

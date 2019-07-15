@@ -1,19 +1,20 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+const Location = ({currentDayWeather})=> {
+    const location = currentDayWeather['location'];
 
-const Location = ({currentCityLocation})=> {
     return (
             <ul>
-                <li>Country: {currentCityLocation['country']}</li>
-                <li>City: {currentCityLocation['name']}</li>
-                <li>Localtime: {currentCityLocation['localtime']}</li>
+                <li>Country: {location['country']}</li>
+                <li>City: {location['name']}</li>
+                <li>Localtime: {location['localtime']}</li>
             </ul>
     )
 };
 
 const mapState = (state)=>({
-    currentCityLocation: state.weather.location
+    currentDayWeather: state.currentDayWeather
 });
 
 export default connect(mapState)(Location);

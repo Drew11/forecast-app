@@ -6,20 +6,20 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 const ForecastWeather = ({ forecastWeather })=> {
     console.log(forecastWeather)
 
-    const forecastDays = forecastWeather['forecast']['forecastday'];
     return (
-        <div className={"forecast"}>
-            <Link to={"./"}>
-                Back Home
-            </Link>
-            {forecastDays.map(forecastDay=>{
-               return <li>
-                {forecastDay.date + ':  ' +forecastDay.day.maxtemp_c}
-               </li>
-            })}
-            <Route path={"./"} component={App}/>
+        <Router>
+            <div className={"forecast"}>
 
-        </div>
+                {
+                 forecastWeather.map(forecastDay=>{
+                    return <li>
+                         {forecastDay.date + '--- avgtemp_c:' +forecastDay.day.maxtemp_c}
+                       </li>
+                    })
+                }
+             </div>
+
+        </Router>
     )
 };
 

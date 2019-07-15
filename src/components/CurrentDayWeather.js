@@ -1,54 +1,48 @@
 import React from 'react';
 import Weather from './Weather';
 import Location from './Location';
-import ForecastWeather from './ForecastWeather';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import {connect} from 'react-redux';
-import {getForecastData} from "../api/api";
+import {getForecastData} from "../helpers/api";
 
-const setForecastWeather = { type: 'setForecastWeather'};
-
-const CurrentDayWeather = ( {currentCityWeather,
-                             forecastWeather,
-                             setForecastWeather1} )=> {
+const CurrentDayWeather = ( {currentCityWeather, setForecastWeather, forecastWeather  } )=> {
 
     const setForecast = async ()=>{
-        setForecastWeather['forecastWeather'] = await getForecastData(currentCityWeather.location['name']);
-        console.log(setForecastWeather['forecastWeather'])
-        setForecastWeather1(forecastWeather['forecastWeather']);
+        const forecastWeather = await getForecastData(currentCityWeather.location['name']);
+        setForecastWeather((forecastWeather['forecast']['forecastday']));
     };
 
+
+
     return (
-        currentCityWeather.current?
-        <Router>
-             <div className={'rendered__weather-detail'}>
-                <Weather />
-                <Location />
-                <Link to={"/forecast_weather"}
-                  onClick={setForecast}
-                 >
-                   Weather on week
+        currentCityWeather.current ?
+            <Router>
+                <div className={'rendered__weather-detail'}>
+                    <Location/>
+                    <Weather/>
+                </div>
+
+                <Link
+                    className={"link__forecast"}
+                    to={"/forecast_weather"}
+                      onClick={setForecast}
+                >
+                    Weather on week
                 </Link>
-
-
-              {forecastWeather['forecast']?
-                 <Route path={"/forecast_weather"} component={ForecastWeather} />:
-                     null
-              }
-
-            </div>
-        </Router>
-        :null
+            </Router>
+            : null
     )
 };
 
 
-const mapDispatch = (dispatch) => ({
-    'setForecastWeather1': () => dispatch(setForecastWeather)
-});
+const mapDispatch = (dispatch) => {
+    return{
+    setForecastWeather: (forecastWeather) => dispatch({type:'SET_FORECAST_WEATHER',forecastWeather: forecastWeather})
+}
+};
 
 const mapState = (state)=>({
-    currentCityWeather: state.weather,
+    currentCityWeather: state.currentDayWeather,
     forecastWeather: state.forecastWeather,
 });
 

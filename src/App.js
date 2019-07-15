@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import CurrentDayWeather from './components/CurrentDayWeather';
 import LastQuery from './components/LastQuery';
+
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import {Input} from 'reactstrap'
 import { connect} from 'react-redux';
-import { getCurrentDayData} from './api/api';
+import { getCurrentDayData} from './helpers/api';
 import './App.scss';
 
-
-const setWeather = { type: 'setWeather'};
-const addCity = {type: 'addCity'};
+import {CURRENT_DAY_WEATHER} from './constans/constans'
+import ForecastWeather from "./components/ForecastWeather";
 
 class App extends Component {
   constructor(){
@@ -40,18 +40,17 @@ class App extends Component {
   async componentDidUpdate( prevProps, prevState ) {
       if (prevState.searchCity !== this.state.searchCity) {
           const weather = await getCurrentDayData(this.state.searchCity);
-          setWeather['weather'] = weather;
-          this.props.setWeather(weather)
+          this.props.setCurrentDayWeather(weather)
       }
 
-      if (prevProps.weather.location!== this.props.weather.location) {
-          if(this.props.weather.location && this.props.weather.location.name){
-              addCity['searchCity'] = this.props.weather.location['name'];
-              this.props.addCity(addCity['searchCity']);
+      if (prevProps.currentDayWeather.current!== this.props.currentDayWeather.current) {
+          if(this.props.currentDayWeather.location && this.props.currentDayWeather.location.name){
+              this.props.addCityToHistory(this.props.currentDayWeather.location['name']);
           }
   }}
 
   render(){
+      console.log(this.props.forecastWeather)
       return (
          <Router>
           <div className="App">
@@ -64,8 +63,12 @@ class App extends Component {
               />
           </header>
 
-              <CurrentDayWeather />
-              <LastQuery click={this.selectCityHistory}/>
+              <main>
+                  <CurrentDayWeather/>
+                  <LastQuery click={ this.selectCityHistory }/>
+                  {this.props.forecastWeather.length>0?
+                      <Route path={"/forecast_weather"} component={ForecastWeather}/>: null}
+              </main>
 
           </div>
          </Router>
@@ -73,15 +76,15 @@ class App extends Component {
   }
 }
 
-const mapState = (state) => ({
-    weather: state.weather,
+const mapProps = (state) => ({
+    currentDayWeather: state.currentDayWeather,
     forecastWeather: state.forecastWeather,
-    fiveLastSearchCity: state.fiveLastSearchCity
 });
 
-const mapDispatch = (dispatch) => ({
-    'setWeather': ()=> dispatch(setWeather),
-    'addCity': ()=>dispatch(addCity)
-});
+const mapDispatchProps = (dispatch) => {
+    return {
+        setCurrentDayWeather: (currentDayWeather)=> dispatch({type: 'SET_CURRENT_DAY_WEATHER', currentDayWeather: currentDayWeather }),
+        addCityToHistory: (cityName)=> dispatch( {type: 'ADD_CITY_TO_HISTORY', cityName: cityName} ),
+}};
 
-export default connect(mapState, mapDispatch)(App);
+export default connect(mapProps, mapDispatchProps)(App);
