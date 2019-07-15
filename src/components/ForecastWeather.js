@@ -1,14 +1,12 @@
 import React from 'react';
-import App from '../App';
+
 import {connect} from 'react-redux';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-const ForecastWeather = ({ forecastWeather })=> {
-    console.log(forecastWeather)
-
+const ForecastWeather = ({ forecastWeather, match })=> {
     return (
-        <Router>
             <div className={"forecast"}>
+                <Link to={'/'}>Back</Link>
 
                 {
                  forecastWeather.map(forecastDay=>{
@@ -16,10 +14,9 @@ const ForecastWeather = ({ forecastWeather })=> {
                          {forecastDay.date + '--- avgtemp_c:' +forecastDay.day.maxtemp_c}
                        </li>
                     })
+
                 }
              </div>
-
-        </Router>
     )
 };
 

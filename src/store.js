@@ -1,6 +1,7 @@
 import {createStore} from 'redux';
 
 const initialState = {
+        city: '',
         currentDayWeather: {},
         forecastWeather:[],
         historyCities: []
@@ -9,6 +10,11 @@ const initialState = {
 //Actions
 function  reducer(state, action) {
     switch (action.type) {
+        case 'SET_CITY':
+            return {
+                ...state,
+                city: action.city
+            };
         case 'SET_CURRENT_DAY_WEATHER':
             return {
                 ...state,

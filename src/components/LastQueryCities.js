@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {getCurrentDayData} from '../helpers/api'
 
-const LastQuery = ({historyCities, click, currentDayWeather})=> {
-    console.log(currentDayWeather)
+const LastQueryCities = ({historyCities, currentDayWeather, setCity, propsCity})=> {
 
     return (
         <div className={"lastFiveQuery"}>
@@ -12,7 +12,7 @@ const LastQuery = ({historyCities, click, currentDayWeather})=> {
                      historyCities.map((city, index)=>
                      <li
                         key={index}
-                        onClick={()=>click(city)}
+                        onClick={()=>setCity(city)}
                         className={currentDayWeather.location['name']===city? 'active': ''}
                       >
                        {city}
@@ -24,8 +24,13 @@ const LastQuery = ({historyCities, click, currentDayWeather})=> {
 };
 
 const mapState = (state)=>({
+    propsCity: state.city,
     historyCities: state.historyCities,
     currentDayWeather: state.currentDayWeather
 });
+const mapDispatchProps = (dispatch)=>{
+    return {
+        setCity:(city)=> dispatch({type: 'SET_CITY', city: city})
+}};
 
-export default connect(mapState)(LastQuery);
+export default connect(mapState, mapDispatchProps)(LastQueryCities);
