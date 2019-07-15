@@ -74,22 +74,20 @@ class App extends Component {
 
               <main>
 
-
-                      <CurrentDayWeather/>
+                      <Route path={"/"} component={CurrentDayWeather}/>
                       <Route path={"/week"} component={ForecastWeather}/>
-
-                  {this.state.componentCurrentDay?
-                      <Link
-                          className={"link__forecast"}
-                          to={"/week"}
-                          onClick={this.setForecast}
-                      >
-                          Weather on week
-                      </Link>: null
-                  }
 
               </main>
 
+              {this.state.componentCurrentDay?
+                  <Link
+                      className={"link__forecast"}
+                      to={"/week"}
+                      onClick={this.setForecast}
+                  >
+                      Weather on week
+                  </Link>: null
+              }
 
           </div>
       );

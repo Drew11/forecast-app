@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 const ForecastWeather = ({ forecastWeather, match })=> {
     return (
             <div className={"forecast"}>
-                <Link to={'/'}>Back</Link>
+                <Link exact to={'/'}>Back</Link>
 
                 {
                  forecastWeather.map(forecastDay=>{
