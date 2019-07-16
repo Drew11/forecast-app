@@ -1,14 +1,13 @@
 import {createStore} from 'redux';
 
 const initialState = {
-        city: '',
-        currentDayWeather: {},
-        forecastWeather:[],
-        historyCities: []
+    city: '',
+    currentDayWeather: {},
+    forecastWeather: [],
+    historyCities: []
 };
 
-//Actions
-function  reducer(state, action) {
+function reducer(state, action) {
     switch (action.type) {
         case 'SET_CITY':
             return {
@@ -19,7 +18,7 @@ function  reducer(state, action) {
             return {
                 ...state,
                 currentDayWeather: action.currentDayWeather
-        };
+            };
         case 'SET_FORECAST_WEATHER':
             return {
                 ...state,
@@ -28,11 +27,11 @@ function  reducer(state, action) {
         case 'ADD_CITY_TO_HISTORY':
             const copyHistoryCities = [...state.historyCities];
 
-            if(!copyHistoryCities.includes(action.cityName)){
+            if (!copyHistoryCities.includes(action.cityName)) {
                 copyHistoryCities.push(action.cityName);
             }
 
-            if(copyHistoryCities.length>5){
+            if (copyHistoryCities.length > 5) {
                 copyHistoryCities.shift();
             }
 
@@ -46,9 +45,5 @@ function  reducer(state, action) {
 }
 
 const store = createStore(reducer, initialState);
-
-store.subscribe(()=>{
-    console.log(store.getState())
-})
 
 export default store;
