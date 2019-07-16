@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 const ForecastWeather = ({forecastWeather}) => {
     return (
         <div className={"forecast__weather"}>
-            <Link to={'/forecast-app'}>Back</Link>
+            <Link to={'/'}>Back</Link>
             <ul className={"forecast__weather-detail"}>
                 {
                     forecastWeather.map((forecastDay, index) => {

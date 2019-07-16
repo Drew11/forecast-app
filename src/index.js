@@ -10,7 +10,7 @@ import { BrowserRouter as Router} from "react-router-dom";
 
 ReactDOM.render(
     <Provider store={store}>
-        <Router basename={"/forecast-app/"}>
+        <Router basename={"/forecast-app"}>
             <App />
         </Router>
     </Provider>
