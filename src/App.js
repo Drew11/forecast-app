@@ -49,8 +49,8 @@ class App extends Component {
                 </header>
 
                 <main>
-                    <Route exact path={"/forecast-app/"} component={CurrentDayWeather}/>
-                    <Route path={"/forecast-app/week"} component={ForecastWeather}/>
+                    <Route exact path={"/"} component={CurrentDayWeather}/>
+                    <Route path={"/week"} component={ForecastWeather}/>
                 </main>
 
             </div>
