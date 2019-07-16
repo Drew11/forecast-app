@@ -1,6 +1,7 @@
 import {createStore} from 'redux';
 
 const initialState = {
+    path: false,
     city: '',
     currentDayWeather: {},
     forecastWeather: [],
@@ -9,6 +10,11 @@ const initialState = {
 
 function reducer(state, action) {
     switch (action.type) {
+        case 'SWITCH_PATH':
+           return{
+               ...state,
+               path: action.path
+           };
         case 'SET_CITY':
             return {
                 ...state,
@@ -39,6 +45,7 @@ function reducer(state, action) {
                 ...state,
                 historyCities: copyHistoryCities
             };
+
         default:
             return state;
     }
@@ -46,4 +53,5 @@ function reducer(state, action) {
 
 const store = createStore(reducer, initialState);
 
+store.subscribe(()=>console.log(store.getState()))
 export default store;

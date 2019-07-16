@@ -2,10 +2,18 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 
-const ForecastWeather = ({forecastWeather}) => {
+
+
+const ForecastWeather = ({forecastWeather, switchPath, match}) => {
+
+    switchPath(match.isExact);
+
     return (
         <div className={"forecast__weather"}>
-            <Link to={'/'}>Back</Link>
+            <Link onClick={()=>switchPath(!match.isExact)}
+                  to={'/'}
+            >Back
+            </Link>
             <ul className={"forecast__weather-detail"}>
                 {
                     forecastWeather.map((forecastDay, index) => {
@@ -31,10 +39,17 @@ const ForecastWeather = ({forecastWeather}) => {
             </ul>
         </div>
     )
+
 };
 
 const mapState = (state) => ({
     forecastWeather: state.forecastWeather,
 });
 
-export default connect(mapState)(ForecastWeather);
+const mapDispatchProps = (dispatch) => ({
+    switchPath: (path)=>  dispatch({
+        type: 'SWITCH_PATH', path: path
+    })
+});
+
+export default connect(mapState, mapDispatchProps)(ForecastWeather);

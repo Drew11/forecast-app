@@ -1,22 +1,13 @@
 import React, {Component} from 'react';
 import {Route} from "react-router-dom";
 import {connect} from 'react-redux';
-import {Input} from 'reactstrap'
+import Header from './components/Header';
 import CurrentDayWeather from './components/CurrentDayWeather';
 import ForecastWeather from "./components/ForecastWeather";
 import {getCurrentDayData} from './helpers/api';
 import './App.scss';
 
 class App extends Component {
-
-    confirmSearchCity = (event) => {
-        const {setCity} = this.props;
-        const city = event.target.value;
-
-        if (event.which === 13) {
-            setCity(city);
-        }
-    };
 
     async componentDidUpdate(prevProps) {
         const {
@@ -36,29 +27,22 @@ class App extends Component {
     }
 
     render() {
+        const { path } = this.props;
+
         return (
             <div className="App">
-                <header className="App-header">
-                    <h1>Forecast App</h1>
-                    <Input
-                        type="text"
-                        placeholder={"type city, on english please..."}
-                        onChange={this.confirmSearchCity}
-                        onKeyPress={this.confirmSearchCity}
-                    />
-                </header>
-
+                { !path ?<Header />:null}
                 <main>
                     <Route exact path={"/"} component={CurrentDayWeather}/>
                     <Route path={"/week"} component={ForecastWeather}/>
                 </main>
-
             </div>
         );
     }
 }
 
 const mapProps = (state) => ({
+    path: state.path,
     city: state.city,
     currentDayWeather: state.currentDayWeather,
     forecastWeather: state.forecastWeather,
@@ -67,9 +51,6 @@ const mapProps = (state) => ({
 
 const mapDispatchProps = (dispatch) => {
     return {
-        setCity: (city) => dispatch(
-            {type: 'SET_CITY', city: city}
-        ),
         setCurrentDayWeather: (currentDayWeather) => dispatch(
             {type: 'SET_CURRENT_DAY_WEATHER', currentDayWeather: currentDayWeather}
         ),
