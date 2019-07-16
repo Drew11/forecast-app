@@ -19,7 +19,7 @@ const ForecastWeather = ({forecastWeather}) => {
                                     {`avgtemp_c: ${forecastDay.day.avgtemp_c}`}
                                 </li>
                                 <li>
-                                    {`avgtemp_c: ${forecastDay.day.avgtemp_c}`}
+                                    {`totalprecip_mm: ${forecastDay.day.totalprecip_mm}`}
                                 </li>
                                 <li>
                                     {`avghumidity: ${forecastDay.day.avghumidity}`}
