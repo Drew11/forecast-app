@@ -2,7 +2,6 @@ const apiKey = 'key=40d72c138d8f408382d145239191207';
 const apiUrlCurrent = 'https://api.apixu.com/v1/current.json?';
 const apiUrlForecast = 'https://api.apixu.com/v1/forecast.json?';
 
-
 function getCurrentDayData(query) {
  return fetch(`${apiUrlCurrent+apiKey}&q=${query}`)
         .then(response=>response.json());

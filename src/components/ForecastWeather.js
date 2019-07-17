@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 
 
-const ForecastWeather = ({forecastWeather, switchPath, match}) => {
+const ForecastWeather = ({forecastWeather, switchPath, match, city}) => {
 
     switchPath(match.isExact);
 
@@ -43,6 +43,7 @@ const ForecastWeather = ({forecastWeather, switchPath, match}) => {
 };
 
 const mapState = (state) => ({
+    city:state.city,
     forecastWeather: state.forecastWeather,
 });
 

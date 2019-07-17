@@ -8,6 +8,8 @@ import {getForecastData} from "../helpers/api";
 
 const CurrentDayWeather = ({currentCityWeather, setForecastWeather, forecastWeather, city, match}) => {
 
+    const cityPath = city.toLowerCase();
+
     async function setForecast() {
         const forecastWeather = await getForecastData(city);
         setForecastWeather((forecastWeather['forecast']['forecastday']))
@@ -26,7 +28,7 @@ const CurrentDayWeather = ({currentCityWeather, setForecastWeather, forecastWeat
 
                 <Link
                     className={"link__forecast"}
-                    to={"/week"}
+                    to={`/${cityPath}/week`}
                     onClick={setForecast}
                 >
                     Weather on week
