@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Route, Redirect } from "react-router-dom";
+import {Route, Redirect} from "react-router-dom";
 import {connect} from 'react-redux';
 import Header from './components/Header';
 import CurrentDayWeather from './components/CurrentDayWeather';
@@ -28,16 +28,20 @@ class App extends Component {
     }
 
     render() {
-        const { path, city, } = this.props;
+        const {path, city, currentDayWeather} = this.props;
         const cityPath = city.toLowerCase();
 
         return (
             <div className="App">
-                { !path ? <Header />:null}
+                {!path ? <Header/> : null}
                 <main>
-                        <Redirect exact from={'/'} to={`/${cityPath}`} />
-                        <Route exact path={`/:city`} component={CurrentDayWeather}/>
-                        <Route exact path={"/:city/week"} component={ForecastWeather}/>
+                    <Redirect exact from={'/'} to={`/${cityPath}`}/>
+                    {
+                        currentDayWeather.location ? <Route exact path={`/:city`} component={CurrentDayWeather}/> :
+                            <Route exact path={`/:city`} render={() => <h2>City not found... </h2>}/>
+                    }
+
+                    <Route exact path={"/:city/week"} component={ForecastWeather}/>
                 </main>
             </div>
         );
