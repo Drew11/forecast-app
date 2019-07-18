@@ -2,16 +2,14 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 
-
-
-const ForecastWeather = ({forecastWeather, switchPath, match, city}) => {
+const ForecastWeather = ({forecastWeather, switchPath, match}) => {
 
     switchPath(match.isExact);
 
     return (
         <div className={"forecast__weather"}>
             <Link onClick={()=>switchPath(!match.isExact)}
-                  to={'/'}
+                  to={`/${match.params.city}`}
             >Back
             </Link>
             <ul className={"forecast__weather-detail"}>

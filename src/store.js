@@ -52,5 +52,4 @@ function reducer(state, action) {
 }
 
 const store = createStore(reducer, initialState);
-
 export default store;

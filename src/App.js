@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Switch,Route, Redirect } from "react-router-dom";
+import {Route, Redirect } from "react-router-dom";
 import {connect} from 'react-redux';
 import Header from './components/Header';
 import CurrentDayWeather from './components/CurrentDayWeather';
@@ -21,24 +21,23 @@ class App extends Component {
             const weather = await getCurrentDayData(city);
             setCurrentDayWeather(weather)
         }
+
         if (prevProps.currentDayWeather.location !== currentDayWeather.location && currentDayWeather.location) {
             addCityToHistory(currentDayWeather.location['name']);
         }
     }
 
     render() {
-        const { path, city } = this.props;
+        const { path, city, } = this.props;
         const cityPath = city.toLowerCase();
 
         return (
             <div className="App">
                 { !path ? <Header />:null}
                 <main>
-                    <Switch>
-                        <Redirect exact from="/" to={`/${cityPath}`}/>
-                        <Route exact path="/:city" component={CurrentDayWeather}/>
-                        <Route path={"/:city/week"} component={ForecastWeather}/>
-                    </Switch>
+                        <Redirect exact from={'/'} to={`/${cityPath}`} />
+                        <Route exact path={`/:city`} component={CurrentDayWeather}/>
+                        <Route exact path={"/:city/week"} component={ForecastWeather}/>
                 </main>
             </div>
         );

@@ -6,12 +6,12 @@ import Location from './Location';
 import LastQueryCities from './LastQueryCities';
 import {getForecastData} from "../helpers/api";
 
-const CurrentDayWeather = ({currentCityWeather, setForecastWeather, forecastWeather, city, match}) => {
+const CurrentDayWeather = ({currentCityWeather, setForecastWeather, forecastWeather, match}) => {
 
-    const cityPath = city.toLowerCase();
+
 
     async function setForecast() {
-        const forecastWeather = await getForecastData(city);
+        const forecastWeather = await getForecastData(match.params.city);
         setForecastWeather((forecastWeather['forecast']['forecastday']))
     }
 
@@ -28,7 +28,7 @@ const CurrentDayWeather = ({currentCityWeather, setForecastWeather, forecastWeat
 
                 <Link
                     className={"link__forecast"}
-                    to={`/${cityPath}/week`}
+                    to={`/${match.params.city}/week`}
                     onClick={setForecast}
                 >
                     Weather on week
