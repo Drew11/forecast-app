@@ -5,10 +5,9 @@ import Weather from './Weather';
 import Location from './Location';
 import LastQueryCities from './LastQueryCities';
 import {getForecastData} from "../helpers/api";
+import {weatherActions} from "../actions/actions";
 
-const CurrentDayWeather = ({currentCityWeather, setForecastWeather, forecastWeather, match}) => {
-
-
+const CurrentDayWeather = ({currentDayWeather, setForecastWeather, forecastWeather, match}) => {
 
     async function setForecast() {
         const forecastWeather = await getForecastData(match.params.city);
@@ -16,7 +15,7 @@ const CurrentDayWeather = ({currentCityWeather, setForecastWeather, forecastWeat
     }
 
     return (
-        currentCityWeather.current ?
+        currentDayWeather.current ?
             <div className={'rendered__weather'}>
 
                 <div className={'rendered__weather-detail'}>
@@ -40,15 +39,14 @@ const CurrentDayWeather = ({currentCityWeather, setForecastWeather, forecastWeat
 
 const mapDispatch = (dispatch) => {
     return {
-        setForecastWeather: (forecastWeather) => dispatch(
-            {type: 'SET_FORECAST_WEATHER', forecastWeather: forecastWeather}
-        )
+        setForecastWeather: (forecastWeather) =>
+            dispatch(weatherActions.setForecastWeather(forecastWeather))
     }
 };
 
 const mapState = (state) => ({
     city: state.city,
-    currentCityWeather: state.currentDayWeather,
+    currentDayWeather: state.currentDayWeather,
     forecastWeather: state.forecastWeather,
 });
 

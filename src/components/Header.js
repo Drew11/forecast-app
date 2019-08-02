@@ -1,6 +1,7 @@
 import React from 'react';
 import {Input} from 'reactstrap';
 import {connect} from "react-redux";
+import {weatherActions} from '../actions/actions'
 
 const Header = ( {setCity} ) => {
 
@@ -26,7 +27,7 @@ const Header = ( {setCity} ) => {
 
 const mapDispatchProps = (dispatch) => {
     return {
-        setCity: (city) => dispatch( {type: 'SET_CITY', city: city} ),
+        setCity: (city) => dispatch(weatherActions.setCity(city) ),
 }};
 
 export default connect(null, mapDispatchProps)(Header);

@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
+import {weatherActions} from '../actions/actions';
 
 const ForecastWeather = ({forecastWeather, switchPath, match}) => {
 
@@ -46,9 +47,7 @@ const mapState = (state) => ({
 });
 
 const mapDispatchProps = (dispatch) => ({
-    switchPath: (path)=>  dispatch({
-        type: 'SWITCH_PATH', path: path
-    })
+    switchPath: (path)=> dispatch(weatherActions.switchPath(path))
 });
 
 export default connect(mapState, mapDispatchProps)(ForecastWeather);

@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {weatherActions} from '../actions/actions';
 
 const LastQueryCities = ({historyCities, currentDayWeather, setCity}) => {
 
@@ -29,7 +30,7 @@ const mapState = (state) => ({
 });
 const mapDispatchProps = (dispatch) => {
     return {
-        setCity: (city) => dispatch({type: 'SET_CITY', city: city})
+        setCity: (city) => dispatch(weatherActions.setCity(city))
     }
 };
 

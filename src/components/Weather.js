@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 
 const Weather = ({currentDayWeather}) => {
     const current = currentDayWeather['current'];
-
     return (
         <ul>
             <li className={"temp_c"}>Temperature: {`${current['temp_c']} ℃`}</li>
